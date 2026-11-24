@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Room Switch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* VOICE: playful toy, tactile and precise
+   IDEA: a glossy plastic toggle switch with a living pixel room inside
+   PICTURE: the switch itself, large, glass bubble knob refracting the scene
+   COLOUR and TYPE: soft grey studio ground, white plastic, pixel palette; Pixelify Sans + Inter
+   LAYOUT: one centred object, a short title above, a status line below */
+:root{color-scheme:light dark;--bg:light-dark(#e3e3ea,#141419);--ink:light-dark(#1c1c24,#ececf2);--mute:light-dark(#555564,#a6a6b4);
+--shell-a:light-dark(#ffffff,#3a3a46);--shell-b:light-dark(#e7e7ee,#23232c);--rim:light-dark(#d2d2dc,#4a4a58)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(24px,4vw,40px);padding:clamp(28px,5vw,64px) 16px}
+h1{margin:0;font:600 clamp(30px,5vw,44px)/1.05 'Pixelify Sans',system-ui,sans-serif;text-wrap:balance;text-align:center}
+.device{width:min(94vw,880px);padding:clamp(14px,3.2vw,30px);border-radius:999px;background:linear-gradient(180deg,var(--shell-a),var(--shell-b));
+box-shadow:0 40px 70px -30px rgba(20,20,50,.45),0 12px 24px -12px rgba(20,20,50,.25),inset 0 2px 0 rgba(255,255,255,.9),inset 0 -4px 8px rgba(0,0,0,.08)}
+.track{position:relative;aspect-ratio:4/1;border-radius:999px;box-shadow:0 0 0 3px var(--shell-a),0 0 0 4px var(--rim),0 -2px 3px 4px rgba(0,0,0,.06)}
+.screen{position:absolute;inset:0;border-radius:999px;overflow:hidden;cursor:pointer;background:#24305e}
+.screen canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.screen::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+box-shadow:inset 0 6px 12px rgba(0,0,0,.45),inset 0 -3px 6px rgba(255,255,255,.25);background:linear-gradient(180deg,rgba(255,255,255,.14),transparent 30%)}
+.knob{position:absolute;left:0;top:0;padding:0;border:0;border-radius:999px;background:transparent;cursor:grab;touch-action:none;
+box-shadow:0 14px 22px -6px rgba(0,0,0,.45),0 3px 6px rgba(0,0,0,.25);will-change:transform}
+.knob:active{cursor:grabbing}
+.knob:focus-visible{outline:3px solid #3fa7d6;outline-offset:4px}
+.knob canvas{display:block;width:100%;height:100%;border-radius:999px}
+.status{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 18px;color:var(--mute);font-size:15px;text-align:center}
+.pill{font:500 15px 'Pixelify Sans',system-ui,sans-serif;color:var(--ink);padding:6px 14px;border-radius:999px;background:var(--shell-a);box-shadow:0 0 0 1px var(--rim)}
+</style>
+</head>
+<body>
+<h1>Pixel room switch</h1>
+<div class="device">
+  <div class="track" id="track">
+    <div class="screen" id="screen"><canvas id="scene" width="192" height="48" aria-hidden="true"></canvas></div>
+    <button class="knob" id="knob" role="switch" aria-checked="true" aria-label="Day and night switch"><canvas id="lens" aria-hidden="true"></canvas></button>
+  </div>
+</div>
+<div class="status"><span class="pill" id="mode">Day</span><span>Drag the glass bubble, or tap the switch.</span></div>
+
+<script>
+{
+const SW=192,SH=48;
+const track=document.getElementById('track'),screen=document.getElementById('screen'),knob=document.getElementById('knob');
+const sctx=document.getElementById('scene').getContext('2d');
+const lens=document.getElementById('lens'),lctx=lens.getContext('2d');
+const mk=()=>{const c=document.createElement('canvas');c.width=SW;c.height=SH;return c.getContext('2d',{willReadFrequently:true})};
+const dctx=mk(),nctx=mk();
+const FI=sctx.createImageData(SW,SH),F=FI.data;
+const modeEl=document.getElementById('mode');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let p=0.72,target=0.72,dragging=false,moved=false,startX=0,startP=0;
+let trackW=1,trackH=1,size=1,kh=1,KW=1,KH=1,LI=null;
+
+/* ---------- pixel scene ---------- */
+function drawScene(ctx,N,t){
+  const c=(d,n)=>N?n:d;
+  const R=(x,y,w,h,col)=>{ctx.fillStyle=col;ctx.fillRect(x,y,w,h)};
+  const blob=(cx,cy,r,col)=>{for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++)if(dx*dx+dy*dy<=r*r+r*.8)R(cx+dx,cy+dy,1,1,col)};
+  // wall, baseboard, floor
+  R(0,0,SW,36,c('#f3e2b3','#24305e'));
+  for(let x=5;x<SW;x+=12)for(let y=9;y<33;y+=12)R(x,y,1,1,c('#e3cb8f','#2e3c72'));
+  R(0,34,SW,3,c('#3f8f8b','#1d4160'));
+  R(0,37,SW,11,c('#c98a4b','#4f3a63'));
+  for(let y=40;y<48;y+=3)R(0,y,SW,1,c('#a96d36','#3f2d52'));
+  for(let i=0;i<12;i++)R((i*29+(i%2)*13)%SW,37+(i%3)*3,1,3,c('#a96d36','#3f2d52'));
+  // bunting
+  const sag=x=>2+Math.floor(3*Math.sin(Math.PI*(x%48)/48));
+  for(let x=0;x<SW;x++)R(x,sag(x),1,1,c('#7a5a3a','#8a8fb8'));
+  const fl=N?['#9c3f3a','#a8812f','#2f6f93','#4a7f50']:['#e4574b','#f2b134','#3fa7d6','#6cc070'];
+  for(let k=0;k<24;k++){const x=3+k*8,y=sag(x)+1,col=fl[k%4];R(x,y,5,1,col);R(x+1,y+1,3,1,col);R(x+2,y+2,1,1,col)}
+  // plant
+  [[16,22,5],[11,19,4],[21,18,4],[14,13,4],[19,11,3],[10,25,3],[22,24,3]].forEach(b=>blob(b[0],b[1],b[2],c('#4f9b3b','#2b5541')));
+  [[15,20,2],[12,17,1],[20,16,2],[14,11,1]].forEach(b=>blob(b[0],b[1],b[2],c('#74c152','#3a6b51')));
+  R(9,29,14,2,c('#d9774d','#7a4652'));R(10,31,12,6,c('#c8643c','#6b3b47'));
+  // bookshelf
+  R(31,7,19,30,c('#9b4f2d','#4a2f45'));R(33,9,15,26,c('#6e3520','#33213a'));
+  const bk=N?['#9c3f3a','#2f6f93','#a8812f','#4a7f50','#6a5596']:['#e4574b','#3fa7d6','#f2b134','#6cc070','#9b7ad8'];
+  [[9,8],[19,6],[27,8]].forEach((s,si)=>{let x=33,k=si;while(x<47){const w=2+((k*7)%2),h=s[1]-((k*5)%3);R(x,s[0]+s[1]-h,w,h,bk[k%5]);x+=w+1;k++}});
+  R(33,17,15,2,c('#9b4f2d','#4a2f45'));R(33,25,15,2,c('#9b4f2d','#4a2f45'));
+  // window
+  const frame=c('#fbfbf6','#97a3c6');
+  R(57,4,46,27,frame);
+  ctx.save();ctx.beginPath();ctx.rect(59,6,42,23);ctx.clip();
+  R(59,6,42,23,c('#8fd6f5','#16204a'));
+  if(!N){for(const o of [0,31]){const cx=59+((t*2.2+o)%62)-10;R(cx,9+o%5,9,2,'#ffffff');R(cx+2,8+o%5,5,1,'#ffffff');R(cx+1,11+o%5,7,1,'#e6f6ff')}}
+  else{R(92,8,4,4,'#f4f1d0');R(91,9,1,2,'#f4f1d0');
+    [[62,8],[67,12],[73,7],[78,10],[84,13],[88,7],[98,12],[70,15]].forEach((s,i)=>{if(Math.sin(t*2+i*1.7)>-0.4)R(s[0],s[1],1,1,'#ffffff')})}
+  const city=[[59,20,5],[64,17,4],[68,22,6],[74,15,5],[79,19,6],[85,16,4],[89,21,7],[96,18,5]];
+  city.forEach((b,bi)=>{R(b[0],b[1],b[2],29-b[1],c('#7f9db8','#0d1433'));
+    if(N)for(let y=b[1]+1;y<28;y+=2)for(let x=b[0]+1;x<b[0]+b[2]-1;x+=2)if(((x*7+y*13+bi)%5)<2)R(x,y,1,1,'#ffd86b')});
+  ctx.restore();
+  R(79,6,2,23,frame);R(59,16,42,2,frame);R(55,29,50,2,c('#e0d6c0','#7c86a8'));
+  // bed / sofa
+  R(64,32,34,5,c('#7a6ad6','#463b86'));R(66,30,30,3,c('#9a8cf0','#5a4ea6'));R(65,37,2,1,'#4a3a2a');R(95,37,2,1,'#4a3a2a');
+  // floor lamp
+  R(108,15,1,22,c('#6b6b78','#8a8fa8'));R(105,36,7,1,c('#6b6b78','#8a8fa8'));
+  const shade=c('#f5c76b','#ffe08a');R(106,10,5,1,shade);R(105,11,7,2,shade);R(104,13,9,2,shade);
+  if(N){ctx.globalAlpha=.16;for(let y=15;y<37;y++){const w=9+(y-15);R(108.5-w/2,y,w,1,'#ffe08a')}ctx.globalAlpha=.22;blob(108,12,7,'#ffe08a');ctx.globalAlpha=1}
+  // cat
+  const blink=(t%4.2)<.15,O=c('#f0a030','#a8703f'),W=c('#fff1d6','#d8c6b0');
+  const E=N?'#b6ff6b':(blink?O:'#2a1a10');
+  const cat=["..O.....O.",".OOO...OOO",".OOOOOOOOO",".OEOOOOEOO",".OOOOPOOOO","..OOOOOOO.","..OOWWWOO.","..OOWWWOOO","..OOWWWOOO","..OOOOOOOO","..OO.OO.OO"];
+  const cx=113,cy=26,bob=(!reduce&&Math.sin(t*3)>.6)?-1:0;
+  cat.forEach((row,j)=>{for(let i=0;i<row.length;i++){const ch=row[i];if(ch==='.')continue;R(cx+i,cy+j+(j<6?bob:0),1,1,ch==='O'?O:ch==='W'?W:ch==='E'?E:'#e66a7a')}});
+  const wag=reduce?0:Math.round(Math.sin(t*4));
+  R(cx+10,cy+9,2,1,O);R(cx+11,cy+7+wag,1,2,O);R(cx+12,cy+5+wag,1,3,O);R(cx+12,cy+4+wag*2,1,1,O);
+  // red radio cabinet
+  R(127,21,32,2,c('#e8604f','#8c3a52'));R(128,23,30,14,c('#d9483b','#7a2f45'));R(128,31,30,1,c('#b23a30','#5e2438'));
+  [[132,25],[149,25]].forEach(d=>{blob(d[0]+2,d[1]+2,2,'#f4f4f4');R(d[0],d[1]+2,5,1,'#333');R(d[0]+2,d[1],1,5,'#333')});
+  R(140,26,4,3,c('#f2c94c','#c9a23a'));R(129,37,2,1,'#4a3a2a');R(155,37,2,1,'#4a3a2a');
+  // door
+  R(165,5,22,32,c('#c9b28a','#3a3f6a'));R(167,7,18,30,c('#3c5bc4','#1b2a70'));
+  R(169,9,14,10,c('#3350b0','#16235f'));R(169,22,14,12,c('#3350b0','#16235f'));R(182,21,2,2,'#f2c94c');
+}
+
+/* ---------- layout ---------- */
+function layout(){
+  const r=track.getBoundingClientRect();trackW=r.width;trackH=r.height;
+  kh=trackH*1.1;size=kh*.7;
+  knob.style.width=size+'px';knob.style.height=kh+'px';
+  knob.style.top=((trackH-kh)/2)+'px';
+  const s=Math.min(2,devicePixelRatio||1);
+  KW=Math.max(24,Math.round(size*s));KH=Math.max(32,Math.round(kh*s));
+  lens.width=KW;lens.height=KH;LI=lctx.createImageData(KW,KH);
+}
+const ro=new ResizeObserver(layout);ro.observe(track);layout();
+
+/* ---------- glass lens ---------- */
+/* capsule-shaped glass: r = 0 at the centre line, 1 at the edge */
+function renderLens(kcx,kcy,u){ // u = scene units per lens pixel
+  const L=LI.data,a=KW/2,hs=KH/2-a,cxp=KW/2,cyp=KH/2;
+  const at=(x,y)=>{x=x<0?0:x>SW-1?SW-1:x|0;y=y<0?0:y>SH-1?SH-1:y|0;return (y*SW+x)*4};
+  for(let j=0;j<KH;j++){const py=j+.5-cyp,qy=Math.max(Math.abs(py)-hs,0);
+    for(let i=0;i<KW;i++){const px=i+.5-cxp,o=(j*KW+i)*4,r=Math.sqrt(px*px+qy*qy)/a;
+      if(r>1.02){L[o+3]=0;continue}
+      const r2=r*r,r4=r2*r2,f=.55+.6*r4,ch=.08*r4*r;
+      const fr=f*(1+ch),fb=f*(1-ch);
+      const ir=at(kcx+px*u*fr,kcy+py*u*fr),ig=at(kcx+px*u*f,kcy+py*u*f),ib=at(kcx+px*u*fb,kcy+py*u*fb);
+      const shade=1-.3*r4*r2,e=Math.max(0,(r-.8)/.2),rim=e*e*110;
+      L[o]=F[ir]*shade+rim;L[o+1]=F[ig+1]*shade+rim;L[o+2]=F[ib+2]*shade+rim+8*r;
+      L[o+3]=Math.max(0,Math.min(1,(1-r)*a+.5))*255;
+    }}
+  lctx.putImageData(LI,0,0);
+  lctx.save();lctx.globalCompositeOperation='source-atop';
+  let g=lctx.createRadialGradient(KW*.34,KH*.2,0,KW*.34,KH*.2,KW*.38);
+  g.addColorStop(0,'rgba(255,255,255,.85)');g.addColorStop(.35,'rgba(255,255,255,.35)');g.addColorStop(1,'rgba(255,255,255,0)');
+  lctx.fillStyle=g;lctx.fillRect(0,0,KW,KH);
+  g=lctx.createRadialGradient(KW*.68,KH*.84,0,KW*.68,KH*.84,KW*.22);
+  g.addColorStop(0,'rgba(255,255,255,.35)');g.addColorStop(1,'rgba(255,255,255,0)');
+  lctx.fillStyle=g;lctx.fillRect(0,0,KW,KH);
+  if(lctx.createConicGradient){
+    const cg=lctx.createConicGradient(-.6,cxp,cyp);
+    ['#ff5f6d','#ffc371','#fff36b','#6bff9e','#5fd3ff','#8a7bff','#ff6bd6','#ff5f6d'].forEach((col,k,arr)=>cg.addColorStop(k/(arr.length-1),col));
+    const lw=KW*.06,rr=a-lw*.7;
+    lctx.globalAlpha=.32;lctx.strokeStyle=cg;lctx.lineWidth=lw;
+    lctx.beginPath();lctx.arc(cxp,cyp-hs,rr,Math.PI,0);lctx.lineTo(cxp+rr,cyp+hs);lctx.arc(cxp,cyp+hs,rr,0,Math.PI);lctx.closePath();lctx.stroke();
+    lctx.globalAlpha=1;
+  }
+  lctx.restore();
+}
+
+/* ---------- loop ---------- */
+function tick(now){
+  const t=reduce?0:now/1000;
+  if(!dragging)p+=(target-p)*(reduce?1:.14);
+  drawScene(dctx,false,t);drawScene(nctx,true,t);
+  const D=dctx.getImageData(0,0,SW,SH).data,Nn=nctx.getImageData(0,0,SW,SH).data;
+  const knobLeft=p*(trackW-size),bx=(knobLeft+size/2)/trackW*SW;
+  for(let y=0;y<SH;y++)for(let x=0;x<SW;x++){
+    const m=Math.max(0,Math.min(1,(x+.5-bx)/4+.5)),i=(y*SW+x)*4;
+    F[i]=D[i]+(Nn[i]-D[i])*m;F[i+1]=D[i+1]+(Nn[i+1]-D[i+1])*m;F[i+2]=D[i+2]+(Nn[i+2]-D[i+2])*m;F[i+3]=255;
+  }
+  sctx.putImageData(FI,0,0);
+  knob.style.transform='translateX('+knobLeft+'px)';
+  renderLens(bx,SH/2,(size/KW)*(SW/trackW));
+  const day=p>.5;knob.setAttribute('aria-checked',day?'true':'false');modeEl.textContent=day?'Day':'Night';
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+/* ---------- interaction ---------- */
+const toggle=()=>{target=p>.5?0:1};
+knob.addEventListener('pointerdown',e=>{dragging=true;moved=false;startX=e.clientX;startP=p;knob.setPointerCapture(e.pointerId)});
+knob.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-startX;if(Math.abs(dx)>3)moved=true;
+  p=Math.max(0,Math.min(1,startP+dx/Math.max(1,trackW-size)));target=p});
+const end=()=>{if(!dragging)return;dragging=false;if(moved)target=p>.5?1:0};
+knob.addEventListener('pointerup',end);knob.addEventListener('pointercancel',end);
+knob.addEventListener('click',e=>{if(moved){moved=false;return}toggle()});
+knob.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){target=0;e.preventDefault()}if(e.key==='ArrowRight'){target=1;e.preventDefault()}});
+screen.addEventListener('click',toggle);
+}
+</script>
+</body>
+</html>

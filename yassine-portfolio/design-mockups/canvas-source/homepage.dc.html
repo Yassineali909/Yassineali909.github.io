@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Yassine — Embedded &amp; Industrial IoT Engineer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F5F8}
+a{color:#0E7490}a:hover{color:#155E75}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.dot{animation:pulse 1.8s ease-in-out infinite}
+.eye{animation:blink 5s infinite;transform-origin:center}
+@media (prefers-reduced-motion: reduce){.dot,.eye{animation:none}}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #0F172A; background-color: #F3F5F8; background-image: linear-gradient(#E3E8EE 1px, transparent 1px), linear-gradient(90deg, #E3E8EE 1px, transparent 1px); background-size: 32px 32px; min-height: 100vh">
+
+<!-- NAV -->
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid #D9E0E7">
+<nav aria-label="Main" style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0F172A">
+<span style="width: 32px; height: 32px; border-radius: 8px; background: #0F172A; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: {{accent}}">Y/</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px">Yassine</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #475569; border: 1px solid #D9E0E7; border-radius: 4px; padding: 2px 6px">EMBEDDED · IIoT</span>
+</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px">
+<a href="#stations" style="padding: 10px 12px; font-size: 14px; font-weight: 500; color: #334155; text-decoration: none">Projects</a>
+<a href="#skills" style="padding: 10px 12px; font-size: 14px; font-weight: 500; color: #334155; text-decoration: none">Skills</a>
+<a href="#lab" style="padding: 10px 12px; font-size: 14px; font-weight: 500; color: #334155; text-decoration: none">Lab</a>
+<a href="#contact" style="padding: 10px 12px; font-size: 14px; font-weight: 500; color: #334155; text-decoration: none">Contact</a>
+<a href="#contact" style="margin-left: 8px; padding: 10px 16px; border-radius: 8px; background: #0F172A; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg>
+Download CV</a>
+</div>
+</nav>
+</header>
+
+<main id="top" style="max-width: 1200px; margin: 0 auto; padding: 0 24px">
+
+<!-- HERO -->
+<section style="display: flex; flex-wrap: wrap; align-items: center; gap: 48px; padding: 80px 0 72px">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 10px; padding: 8px 12px; background: #FFFFFF; border: 1px solid #D9E0E7; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #334155">
+<span class="dot" style="width: 8px; height: 8px; border-radius: 50%; background: #16A34A; display: inline-block"></span>
+STATUS: OPEN TO EMBEDDED &amp; AUTOMATION ROLES
+</div>
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 3.4rem; line-height: 1.05; letter-spacing: -0.02em">Embedded engineer building machines that <span style="color: {{accent}}">think at the edge.</span></h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #475569; max-width: 540px">Industrial Computing graduate working across embedded systems, industrial IoT, TinyML and test &amp; validation — from sensor to firmware to dashboard.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#stations" style="padding: 14px 20px; border-radius: 10px; background: {{accent}}; color: #FFFFFF; font-weight: 600; font-size: 15px; text-decoration: none">Explore my PFE system →</a>
+<a href="#contact" style="padding: 14px 20px; border-radius: 10px; background: #FFFFFF; border: 1px solid #CBD5E1; color: #0F172A; font-weight: 600; font-size: 15px; text-decoration: none">Get in touch</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; padding-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #475569">
+<span>ESP32-S3</span><span>TinyML</span><span>MQTT</span><span>InfluxDB</span><span>Zabbix</span><span>MLflow</span>
+</div>
+</div>
+
+<!-- Hero lab visual -->
+<div style="flex: 1 1 420px; min-width: 0; position: relative; height: 460px; background: #FFFFFF; border: 1px solid #D9E0E7; border-radius: 20px; overflow: hidden">
+<div style="position: absolute; inset: 0; background-image: radial-gradient(#CBD5E1 1px, transparent 1px); background-size: 16px 16px; opacity: 0.6"></div>
+<div style="position: absolute; left: 16px; top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #475569">VIEWPORT · CELL_01 · ISO</div>
+<div style="position: absolute; right: 16px; top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #B45309">● REC</div>
+
+<!-- Robot mascot -->
+<svg style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -44%)" width="230" height="270" viewBox="0 0 230 270" aria-hidden="true">
+<ellipse cx="115" cy="258" rx="70" ry="8" fill="#E2E8F0"></ellipse>
+<line x1="115" y1="20" x2="115" y2="44" stroke="#94A3B8" stroke-width="3" stroke-linecap="round"></line>
+<circle class="dot" cx="115" cy="16" r="7" fill="#F59E0B"></circle>
+<rect x="35" y="44" width="160" height="118" rx="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"></rect>
+<rect x="52" y="62" width="126" height="80" rx="22" fill="#0F172A"></rect>
+<g class="eye"><rect x="80" y="86" width="20" height="26" rx="10" fill="#22D3EE"></rect></g>
+<g class="eye"><rect x="130" y="86" width="20" height="26" rx="10" fill="#22D3EE"></rect></g>
+<path d="M100 124 Q115 134 130 124" stroke="#22D3EE" stroke-width="4" fill="none" stroke-linecap="round"></path>
+<rect x="22" y="92" width="14" height="30" rx="7" fill="#E2E8F0"></rect>
+<rect x="194" y="92" width="14" height="30" rx="7" fill="#E2E8F0"></rect>
+<rect x="62" y="170" width="106" height="70" rx="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"></rect>
+<rect x="96" y="188" width="38" height="8" rx="4" fill="#F59E0B"></rect>
+<circle cx="104" cy="216" r="5" fill="#22D3EE"></circle>
+<circle cx="126" cy="216" r="5" fill="#CBD5E1"></circle>
+<path d="M62 196 Q36 204 40 230" stroke="#CBD5E1" stroke-width="8" fill="none" stroke-linecap="round"></path>
+<path d="M168 196 Q196 190 200 168" stroke="#CBD5E1" stroke-width="8" fill="none" stroke-linecap="round"></path>
+</svg>
+
+<!-- HUD cards -->
+<div style="position: absolute; left: 20px; top: 64px; padding: 12px 14px; background: rgba(255,255,255,0.82); backdrop-filter: blur(8px); border: 1px solid #BAE6FD; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 8px 24px rgba(15,23,42,0.06)">
+<span style="color: #475569">node_01</span>
+<span style="color: #0F172A; font-weight: 500">ESP32-S3</span>
+<span style="color: #0E7490">inference: on-device</span>
+</div>
+<div style="position: absolute; right: 20px; top: 150px; padding: 12px 14px; background: rgba(255,255,255,0.82); backdrop-filter: blur(8px); border: 1px solid #FDE68A; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 8px 24px rgba(15,23,42,0.06)">
+<span style="color: #475569">anomaly_score</span>
+<span style="display: flex; align-items: center; gap: 8px; color: #0F172A; font-weight: 500"><span class="dot" style="width: 7px; height: 7px; border-radius: 50%; background: #F59E0B; display: inline-block"></span>[LIVE VALUE]</span>
+<svg width="120" height="28" viewBox="0 0 120 28" aria-hidden="true"><polyline points="0,20 12,18 24,21 36,16 48,19 60,17 72,8 84,14 96,18 108,16 120,19" fill="none" stroke="#F59E0B" stroke-width="2"></polyline></svg>
+</div>
+<div style="position: absolute; left: 24px; bottom: 22px; padding: 10px 12px; background: #0F172A; border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E2E8F0; display: flex; gap: 10px">
+<span style="color: #22D3EE">mqtt</span><span>factory/cell01/vibration</span>
+</div>
+<div style="position: absolute; right: 24px; bottom: 26px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #475569">Hi — I'm the site guide.</div>
+</div>
+</section>
+
+<!-- STATIONS -->
+<section id="stations" style="padding: 56px 0; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #B45309">01 — FEATURED PROJECT · PFE</span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; letter-spacing: -0.01em">Predictive maintenance, station by station</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #475569; max-width: 680px">An IoT predictive maintenance system where machine learning runs on the device itself. Select a station to inspect it.</p>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #D9E0E7; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 28px">
+<div style="position: relative; display: flex; flex-wrap: wrap; gap: 12px">
+<sc-for list="{{stations}}" as="s" hint-placeholder-count="5">
+<sc-if value="{{s.active}}" hint-placeholder-val="{{false}}">
+<button type="button" onClick="{{s.pick}}" aria-pressed="true" style="flex: 1 1 160px; min-height: 96px; text-align: left; padding: 16px; border-radius: 14px; border: 2px solid {{accent}}; background: #ECFEFF; cursor: pointer; display: flex; flex-direction: column; gap: 6px; font-family: inherit">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #0E7490">{{s.code}} · ACTIVE</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; color: #0F172A">{{s.name}}</span>
+<span style="font-size: 13px; color: #475569">{{s.tech}}</span>
+</button>
+</sc-if>
+<sc-if value="{{s.idle}}" hint-placeholder-val="{{true}}">
+<button type="button" onClick="{{s.pick}}" aria-pressed="false" style="flex: 1 1 160px; min-height: 96px; text-align: left; padding: 16px; border-radius: 14px; border: 1px solid #D9E0E7; background: #F8FAFC; cursor: pointer; display: flex; flex-direction: column; gap: 6px; font-family: inherit">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #475569">{{s.code}}</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; color: #0F172A">{{s.name}}</span>
+<span style="font-size: 13px; color: #475569">{{s.tech}}</span>
+</button>
+</sc-if>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; padding: 24px; border-radius: 14px; background: #F8FAFC; border: 1px solid #E2E8F0">
+<div style="flex: 2 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #B45309">INSPECTING {{cur.code}}</span>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 600">{{cur.name}}</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.65; color: #334155">{{cur.desc}}</p>
+</div>
+<div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; border: 1px solid #D9E0E7; border-radius: 12px; background: #FFFFFF; overflow: hidden; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+<div style="padding: 10px 14px; border-bottom: 1px solid #E2E8F0; color: #475569; font-size: 11px">SPEC SHEET</div>
+<sc-for list="{{cur.specs}}" as="row" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #F1F5F9">
+<span style="color: #475569">{{row.k}}</span>
+<span style="color: #0F172A; text-align: right">{{row.v}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SKILLS RACK -->
+<section id="skills" style="padding: 56px 0; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #B45309">02 — CAPABILITIES</span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; letter-spacing: -0.01em">The I/O rack</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #475569; max-width: 680px">Each module is a domain I work in. Green means it's running in a shipped project.</p>
+</div>
+<div style="background: #1E293B; border-radius: 18px; padding: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px">
+<sc-for list="{{modules}}" as="m" hint-placeholder-count="6">
+<div style="background: #F8FAFC; border-radius: 10px; padding: 16px; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; border-top: 4px solid {{m.bar}}">
+<div style="display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #475569">
+<span>SLOT {{m.slot}}</span>
+<span style="display: flex; gap: 4px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{m.led}}; display: inline-block"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #CBD5E1; display: inline-block"></span></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; color: #0F172A">{{m.name}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #475569">{{m.tags}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<!-- LAB -->
+<section id="lab" style="padding: 56px 0; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #B45309">03 — LAB · EXPERIMENTAL</span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; letter-spacing: -0.01em">The Cell</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #475569; max-width: 640px">Three autonomous machine characters share a production cell, argue with each other, and react to live sensor data from a real ESP32 on my desk.</p>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 8px 12px; border-radius: 999px; background: #FEF3C7; color: #92400E">BUILD IN PROGRESS</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+<sc-for list="{{cast}}" as="c" hint-placeholder-count="3">
+<div style="background: #FFFFFF; border: 1px solid #D9E0E7; border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 14px">
+<div style="width: 72px; height: 56px; border-radius: 14px; background: #0F172A; display: flex; align-items: center; justify-content: center; gap: 12px; flex-shrink: 0">
+<span style="width: 12px; height: {{c.eyeH}}; border-radius: 4px; background: {{c.eye}}; display: inline-block"></span>
+<span style="width: 12px; height: {{c.eyeH}}; border-radius: 4px; background: {{c.eye}}; display: inline-block"></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #0F172A">{{c.id}}</span>
+<span style="font-size: 13px; color: #475569">{{c.role}}</span>
+</div>
+</div>
+<p style="margin: 0; padding: 14px; border-radius: 12px; background: #F8FAFC; border: 1px solid #E2E8F0; font-size: 15px; line-height: 1.55; color: #0F172A">“{{c.line}}”</p>
+<div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #475569">
+<span>mood: {{c.mood}}</span><span>trait: {{c.trait}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding: 56px 0 80px">
+<div style="background: #0F172A; border-radius: 22px; padding: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 28px; color: #F8FAFC">
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #22D3EE">04 — HANDSHAKE</span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700">Let's build something that runs on real hardware.</h2>
+<p style="margin: 0; font-size: 16px; color: #CBD5E1">Looking for roles in embedded systems, industrial automation and IIoT.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex: 0 1 300px">
+<a href="mailto:[YOUR EMAIL]" style="padding: 14px 18px; border-radius: 10px; background: #22D3EE; color: #0F172A; font-weight: 600; text-decoration: none; text-align: center">[YOUR EMAIL]</a>
+<div style="display: flex; gap: 10px">
+<a href="#contact" style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #334155; color: #F8FAFC; text-decoration: none; text-align: center; font-size: 14px">LinkedIn</a>
+<a href="#contact" style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #334155; color: #F8FAFC; text-decoration: none; text-align: center; font-size: 14px">GitHub</a>
+<a href="#contact" style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #334155; color: #F8FAFC; text-decoration: none; text-align: center; font-size: 14px">CV.pdf</a>
+</div>
+</div>
+</div>
+<p style="margin: 24px 0 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #475569; text-align: center">© 2026 Yassine · uptime: since graduation</p>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#0891B2","options":["#0891B2","#2563EB","#0D9488","#D97706"]},"$preview":{"width":1440,"height":3000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { picked: 0 };
+  }
+  renderVals() {
+    var data = [
+      { code: 'S1', name: 'Edge node', tech: 'ESP32-S3 · TinyML',
+        desc: 'The ESP32-S3 acquires machine signals and runs the TinyML model locally. Inference happens on the device, with no dependency on a cloud service, so a fault can be flagged even when the network is down.',
+        specs: [{ k: 'MCU', v: 'ESP32-S3' }, { k: 'Model', v: 'TinyML, on-device' }, { k: 'Inference time', v: '[X ms]' }] },
+      { code: 'S2', name: 'Transport', tech: 'MQTT',
+        desc: 'Readings and anomaly results are published over MQTT, a lightweight publish/subscribe protocol suited to constrained devices and unreliable industrial networks.',
+        specs: [{ k: 'Protocol', v: 'MQTT' }, { k: 'Topic', v: '[YOUR TOPIC]' }, { k: 'Payload', v: '[FORMAT]' }] },
+      { code: 'S3', name: 'Model lifecycle', tech: 'MLflow',
+        desc: 'MLflow tracks training runs, parameters and model versions, so every model deployed to the device can be traced back to the experiment that produced it.',
+        specs: [{ k: 'Tracking', v: 'MLflow' }, { k: 'Accuracy', v: '[X %]' }, { k: 'Model size', v: '[X KB]' }] },
+      { code: 'S4', name: 'Time-series', tech: 'InfluxDB',
+        desc: 'InfluxDB stores the telemetry history, giving a timeline of machine behaviour for analysis and for retraining the model.',
+        specs: [{ k: 'Database', v: 'InfluxDB' }, { k: 'Sample rate', v: '[X Hz]' }, { k: 'Retention', v: '[X days]' }] },
+      { code: 'S5', name: 'Supervision', tech: 'Zabbix',
+        desc: 'Zabbix supervises the devices and raises alerts, closing the loop between an anomaly detected at the edge and a technician being notified.',
+        specs: [{ k: 'Monitoring', v: 'Zabbix' }, { k: 'Alerting', v: '[CHANNEL]' }, { k: 'Devices', v: '[N]' }] }
+    ];
+    var self = this;
+    var picked = this.state.picked;
+    var stations = data.map(function (d, i) {
+      return { code: d.code, name: d.name, tech: d.tech, active: i === picked, idle: i !== picked,
+        pick: function () { self.setState({ picked: i }); } };
+    });
+    return {
+      accent: this.props.accent ?? '#0891B2',
+      stations: stations,
+      cur: data[picked],
+      modules: [
+        { slot: '01', name: 'Embedded systems', tags: 'ESP32 · embedded C', led: '#16A34A', bar: '#0891B2' },
+        { slot: '02', name: 'IoT & Edge AI', tags: 'MQTT · on-device ML', led: '#16A34A', bar: '#0891B2' },
+        { slot: '03', name: 'TinyML & PdM', tags: 'predictive maintenance', led: '#16A34A', bar: '#0891B2' },
+        { slot: '04', name: 'Industrial automation', tags: '[PLC / SCADA TOOLS]', led: '#F59E0B', bar: '#F59E0B' },
+        { slot: '05', name: 'Industrial protocols', tags: '[MODBUS · OPC UA …]', led: '#F59E0B', bar: '#F59E0B' },
+        { slot: '06', name: 'Test & validation', tags: '[YOUR TOOLS]', led: '#F59E0B', bar: '#F59E0B' },
+        { slot: '07', name: 'Data & monitoring', tags: 'InfluxDB · Zabbix · MLflow', led: '#16A34A', bar: '#0891B2' },
+        { slot: '08', name: 'Software', tags: 'Python · integration', led: '#16A34A', bar: '#0891B2' }
+      ],
+      cast: [
+        { id: 'PRESS-98', role: 'Hydraulic press · legacy PLC', line: 'Who said "legacy"? Say it to my face plate.', mood: 'suspicious', trait: 'paranoid', eye: '#F59E0B', eyeH: '10px' },
+        { id: 'RUNNER', role: 'Autonomous mobile robot', line: 'Relax, grandpa. Nobody is replacing you. Today.', mood: 'chill', trait: 'street-smart', eye: '#22D3EE', eyeH: '20px' },
+        { id: 'CLOUD-X', role: 'Central data server', line: 'I process more data before breakfast than you two have in a lifetime.', mood: 'smug', trait: 'insufferable', eye: '#A5B4FC', eyeH: '6px' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
